@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>BokehJS sample : timeseries chart</title>
+	
+	<!-- BokehJS css -->
+	<link href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.15.min.css" rel="stylesheet">
+	<link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.15.min.css" rel="stylesheet">
+	<link href="http://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.15.min.css" rel="stylesheet">
+	
+	<!-- BokehJS js -->
+	<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.15.min.js"></script>
+	<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.15.min.js"></script>
+	<script src="http://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.15.min.js"></script>
+	<script src="http://cdn.pydata.org/bokeh/release/bokeh-api-0.12.15.min.js"></script>
+	
+	<!-- BokehJS trial -->
+	<script type="text/javascript">
+	window.onload = function(){
+
+		// make the plot and add some tools
+		var p = Bokeh.Plotting.figure({
+			title       : 'BokehJS sample : timeseries chart',
+			tools       : "pan,crosshair,wheel_zoom,box_zoom,reset,save",
+			x_axis_type : "datetime",
+			plot_width  : 640,
+			plot_height : 480,
+		});
+
+		// sample data
+		var data = [
+			{
+				source :  new Bokeh.ColumnDataSource({
+					data : {
+						x : [
+								new Date("2018/01/01 00:00:00").getTime(),
+								new Date("2018/02/01 00:00:00").getTime(),
+								new Date("2018/04/01 00:00:00").getTime(),
+								new Date("2018/08/01 00:00:00").getTime(),
+								new Date("2018/12/01 00:00:00").getTime(),
+							],
+						y : [ 40, 60, 80, 100, 120 ]
+					}
+				}),
+				color  : "#00FF00"
+			},
+			{
+				source :  new Bokeh.ColumnDataSource({
+					data : {
+						x : [
+								new Date("2018/01/01 00:00:00").getTime(),
+								new Date("2018/03/01 00:00:00").getTime(),
+								new Date("2018/05/01 00:00:00").getTime(),
+								new Date("2018/07/01 00:00:00").getTime(),
+								new Date("2018/11/01 00:00:00").getTime(),
+							],
+						y : [ 40, 60, 80, 100, 120 ]
+					}
+				}),
+				color  : "#0000FF"
+			}
+		];
+		
+		// draw
+		for( d of data ){
+			p.line  ({ field: "x" }, { field: "y" }, { source: d.source , line_color: d.color });
+			p.circle({ field: "x" }, { field: "y" }, { source: d.source , line_color: d.color });
+		}
+		
+		// xaxis label formatter
+		if(false){ // trial code ( not work. Can anybody tell me? )
+			var format = [ "%m/%d %H:%M:%S" ];
+			p.xaxis.formatter.microseconds	= format;
+			p.xaxis.formatter.milliseconds	= format;
+			p.xaxis.formatter.seconds		= format;
+			p.xaxis.formatter.minsec		= format;
+			p.xaxis.formatter.minutes		= format;
+			p.xaxis.formatter.hourmin		= format;
+			p.xaxis.formatter.hours			= format;
+			p.xaxis.formatter.days			= format;
+			p.xaxis.formatter.months		= format;
+			p.xaxis.formatter.years			= format;
+		}
+		
+		// show
+		Bokeh.Plotting.show(p, document.getElementById("plot"))
+	}
+	</script>
+</head>
+<body>
+	<div id="plot"></div>
+</body>
+</html>
