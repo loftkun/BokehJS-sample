@@ -2,7 +2,7 @@ BokehJS-sample
 ==================================================
 
 ## What it is?
-Drawing graph only use JavaScript( [BokehJS](https://bokeh.pydata.org/en/latest/docs/dev_guide/bokehjs.html) ),  
+Drawing graph using only JavaScript( [BokehJS](https://bokeh.pydata.org/en/latest/docs/dev_guide/bokehjs.html) ),  
 without using Python( such as [Jupyter Notebook](http://jupyter.org/) ).
 
 ### codes
